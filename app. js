@@ -1,0 +1,38 @@
+const table = document.getElementById("table");
+const alarmList = document.getElementById("alarmList");
+
+db.ref("onts").on("value", snap => {
+  const data = snap.val();
+
+  let total=0, up=0, down=0, totalRx=0;
+  table.innerHTML = "";
+  alarmList.innerHTML = "";
+
+  Object.values(data).forEach(o => {
+    total++;
+    totalRx += o.rx;
+
+    if(o.status==="UP") up++; else {
+      down++;
+      alarmList.innerHTML += `<li>⚠️ ${o.name} DOWN</li>`;
+    }
+
+    table.innerHTML += `
+      <tr>
+        <td>${o.name}</td>
+        <td style="color:${o.status==='UP'?'#22c55e':'#ef4444'}">${o.status}</td>
+        <td>${o.rx}</td>
+        <td>${o.tx}</td>
+        <td>${o.uptime}</td>
+      </tr>
+    `;
+  });
+
+  document.getElementById("total").innerText = total;
+  document.getElementById("up").innerText = up;
+  document.getElementById("down").innerText = down;
+  document.getElementById("avg").innerText = (totalRx/total).toFixed(1);
+
+  updateMap(data);
+  updateChartRealtime(data);
+});

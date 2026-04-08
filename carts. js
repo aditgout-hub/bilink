@@ -1,0 +1,41 @@
+let chart;
+
+function initChart() {
+  const ctx = document.getElementById("chart");
+
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [
+        { label: "RX", data: [] },
+        { label: "TX", data: [] }
+      ]
+    }
+  });
+}
+
+function updateChartRealtime(data) {
+  let avgRx = 0;
+  let avgTx = 0;
+  let count = Object.keys(data).length;
+
+  Object.values(data).forEach(o => {
+    avgRx += o.rx;
+    avgTx += o.tx;
+  });
+
+  avgRx /= count;
+  avgTx /= count;
+
+  chart.data.labels.push(new Date().toLocaleTimeString());
+  chart.data.datasets[0].data.push(avgRx);
+  chart.data.datasets[1].data.push(avgTx);
+
+  if (chart.data.labels.length > 10) {
+    chart.data.labels.shift();
+    chart.data.datasets.forEach(d => d.data.shift());
+  }
+
+  chart.update();
+}

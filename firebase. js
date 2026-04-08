@@ -1,0 +1,9 @@
+const firebaseConfig = {
+  apiKey: "ISI_API_KEY",
+  authDomain: "ISI_PROJECT.firebaseapp.com",
+  databaseURL: "https://ISI_PROJECT.firebaseio.com",
+  projectId: "ISI_PROJECT"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();

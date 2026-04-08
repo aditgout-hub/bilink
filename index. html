@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Bilink Ultra NOC</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<!-- LIBRARY -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2>⚡ BILINK</h2>
+    <nav>
+      <a class="active">Dashboard</a>
+      <a>ONT</a>
+      <a>Map</a>
+      <a>Alarm</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+
+    <div class="topbar">
+      <input placeholder="Cari ONT / SN / Lokasi...">
+      <div class="status">🟢 Realtime</div>
+    </div>
+
+    <!-- CARDS -->
+    <div class="cards">
+      <div class="card"><p>Total</p><h2 id="total">0</h2></div>
+      <div class="card up"><p>UP</p><h2 id="up">0</h2></div>
+      <div class="card down"><p>DOWN</p><h2 id="down">0</h2></div>
+      <div class="card"><p>AVG RX</p><h2 id="avg">0</h2></div>
+    </div>
+
+    <!-- CHART -->
+    <div class="chart-box">
+      <canvas id="chart"></canvas>
+    </div>
+
+    <!-- MAP -->
+    <div class="map-box">
+      <div id="map"></div>
+    </div>
+
+    <!-- ALARM -->
+    <div class="alarm-box">
+      <h3>🚨 Alarm ONT</h3>
+      <ul id="alarmList"></ul>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-box">
+      <table>
+        <thead>
+          <tr>
+            <th>ONT</th>
+            <th>Status</th>
+            <th>RX</th>
+            <th>TX</th>
+            <th>Uptime</th>
+          </tr>
+        </thead>
+        <tbody id="table"></tbody>
+      </table>
+    </div>
+
+  </main>
+
+</div>
+
+<script src="firebase.js"></script>
+<script src="map.js"></script>
+<script src="chart.js"></script>
+<script src="app.js"></script>
+
+<script>
+lucide.createIcons();
+initChart();
+</script>
+
+</body>
+</html>
